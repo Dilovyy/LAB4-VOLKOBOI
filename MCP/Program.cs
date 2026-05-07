@@ -10,26 +10,40 @@ using var loggerFactory = LoggerFactory.Create(builder =>
 
 ILogger logger = loggerFactory.CreateLogger<Program>();
 
+if (args.Length > 0 && args[0] == "--mcp")
+{
+    var builder = Host.CreateDefaultBuilder()
+        .ConfigureServices(services =>
+        {
+            services.AddMcpServer()
+                    .WithStdioServerTransport()
+                    .WithTools<CryptoTools>();
+        });
+
+    await builder.Build().RunAsync();
+    return;
+}
+
 try
 {
     var command = CLIcipher.Parse(args);
     ExecuteCommand(command, logger);
-    return 0;
+    Environment.Exit(0);
 }
 catch (CLIException ex)
 {
     Console.Error.WriteLine($"Error: {ex.Message}");
-    return 1;
+    Environment.Exit(1);
 }
 catch (ArgumentException ex)
 {
     Console.Error.WriteLine($"Invalid argument: {ex.Message}");
-    return 1;
+    Environment.Exit(1);
 }
 catch (Exception ex)
 {
     Console.Error.WriteLine($"Unexpected error: {ex.Message}");
-    return 2;
+    Environment.Exit(2);
 }
 
 static void ExecuteCommand(CLICommand command, ILogger logger)
@@ -40,18 +54,21 @@ static void ExecuteCommand(CLICommand command, ILogger logger)
     {
         case CommandType.Help:
             PrintHelp();
+            logger.LogInformation("Help command executed");
             break;
 
         case CommandType.CaesarEncrypt:
             {
                 var opts = (CaesarOptions)command.Options!;
                 Console.WriteLine(Caesar.Encrypt(opts.Text, opts.Shift));
+                logger.LogInformation("Caesar executed");
                 break;
             }
         case CommandType.CaesarDecrypt:
             {
                 var opts = (CaesarOptions)command.Options!;
                 Console.WriteLine(Caesar.Decrypt(opts.Text, opts.Shift));
+                logger.LogInformation("Caesar decrypt executed");
                 break;
             }
 
@@ -59,12 +76,14 @@ static void ExecuteCommand(CLICommand command, ILogger logger)
             {
                 var opts = (VigenereOptions)command.Options!;
                 Console.WriteLine(Vigenere.Encrypt(opts.Text, opts.Key));
+                logger.LogInformation("Vigenere executed");
                 break;
             }
         case CommandType.VigenereDecrypt:
             {
                 var opts = (VigenereOptions)command.Options!;
                 Console.WriteLine(Vigenere.Decrypt(opts.Text, opts.Key));
+                logger.LogInformation("Vigenere decrypt executed");
                 break;
             }
     }

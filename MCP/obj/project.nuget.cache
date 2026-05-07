@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MNTW8DfiU4Q=",
+  "dgSpecHash": "EIeEpe5gFss=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mykola\\uchebka\\LAB4 PTSD\\MCP\\MCP.csproj",
+  "projectFilePath": "c:\\Users\\Mykola\\uchebka\\LAB4 PTSD\\MCP\\MCP.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mykola\\.nuget\\packages\\microsoft.extensions.ai.abstractions\\10.4.1\\microsoft.extensions.ai.abstractions.10.4.1.nupkg.sha512",
     "C:\\Users\\Mykola\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\10.0.5\\microsoft.extensions.caching.abstractions.10.0.5.nupkg.sha512",

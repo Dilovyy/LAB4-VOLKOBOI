@@ -13,7 +13,7 @@ public static class CLIcipher
             "caesar" => ParseCaesar(args[1..]),
             "vigenere" => ParseVigenere(args[1..]),
             "help" or "--help" or "-h" => new CLICommand(CommandType.Help, null),
-            _ => throw new CLIException($"Unknown command: '{args[0]}'. Run 'cryptool help' for usage.")
+            _ => throw new CLIException($"Unknown command: '{args[0]}'. Run 'dotnet run help' for usage.")
         };
     }
 
