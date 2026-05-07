@@ -1,9 +1,19 @@
 ﻿using Cryptool;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+
+using var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder.AddConsole();
+});
+
+ILogger logger = loggerFactory.CreateLogger<Program>();
 
 try
 {
     var command = CLIcipher.Parse(args);
-    ExecuteCommand(command);
+    ExecuteCommand(command, logger);
     return 0;
 }
 catch (CLIException ex)
@@ -22,8 +32,10 @@ catch (Exception ex)
     return 2;
 }
 
-static void ExecuteCommand(CLICommand command)
+static void ExecuteCommand(CLICommand command, ILogger logger)
 {
+    
+    logger.LogInformation("Command executed");
     switch (command.Type)
     {
         case CommandType.Help:

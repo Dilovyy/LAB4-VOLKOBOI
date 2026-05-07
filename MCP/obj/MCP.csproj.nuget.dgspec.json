@@ -50,6 +50,24 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[10.0.7, )"
+            },
+            "Microsoft.Extensions.Logging.Console": {
+              "target": "Package",
+              "version": "[10.0.7, )"
+            },
+            "ModelContextProtocol": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
+            "System.CommandLine": {
+              "target": "Package",
+              "version": "[2.0.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
